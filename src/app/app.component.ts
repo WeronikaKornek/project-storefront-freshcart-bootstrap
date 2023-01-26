@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import {Observable, of} from "rxjs";
+import {CategoriesModel} from "./models/categories.model";
+import {StoreModel} from "./models/store.model";
+import {CategoriesService} from "./services/categories.service";
+import {StoreService} from "./services/store.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +12,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-freshcard-bootstrap-theme';
+  readonly categories$: Observable<CategoriesModel[]> = this._categoriesService.getAll();
+  readonly stores$: Observable<StoreModel[]> = this._storeService.getAll();
+  readonly FooterGetToKnowUs$: Observable<string[]> = of(['Company','About','Blog','Help Center','Our Value'])
+  constructor(private _categoriesService: CategoriesService, private _storeService: StoreService) {
+  }
 }
