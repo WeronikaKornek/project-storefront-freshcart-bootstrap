@@ -12,9 +12,10 @@ import {StoreService} from "./services/store.service";
 })
 export class AppComponent {
   title = 'ng-freshcard-bootstrap-theme';
-  readonly categories$: Observable<CategoriesModel[]> = this._categoriesService.getAll();
+
   readonly stores$: Observable<StoreModel[]> = this._storeService.getAll();
   readonly FooterGetToKnowUs$: Observable<string[]> = of(['Company','About','Blog','Help Center','Our Value'])
+  readonly categories$: Observable<CategoriesModel[]> = this._categoriesService.getAll();
   constructor(private _categoriesService: CategoriesService, private _storeService: StoreService) {
   }
 }
