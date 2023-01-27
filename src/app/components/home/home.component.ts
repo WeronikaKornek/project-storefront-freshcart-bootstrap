@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import {combineLatest, map, Observable} from "rxjs";
-import {CategoriesModel} from "../../models/categories.model";
-import {CategoriesService} from "../../services/categories.service";
-import {StoreService} from "../../services/store.service";
-import {StoreModel} from "../../models/store.model";
-import {StoresWithTagsQueryModel} from "../../query-models/stores-with-tags.query-model";
-import {StoreTagsModel} from "../../models/store-tags.model";
-
+import {Observable, combineLatest, take} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CategoriesModel } from '../../models/categories.model';
+import { StoresWithTagsQueryModel } from '../../query-models/stores-with-tags.query-model';
+import { StoreModel } from '../../models/store.model';
+import { StoreTagsModel } from '../../models/store-tags.model';
+import { ProductsModel } from '../../models/products.model';
+import { CategoriesService } from '../../services/categories.service';
+import { StoreService } from '../../services/store.service';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -26,12 +28,17 @@ export class HomeComponent {
     })
   );
 
+  readonly products$: Observable<ProductsModel[]> = this._productService.getAll();
+  readonly fruitsVegetables$:  Observable<ProductsModel[]> = this.products$.pipe(
+    map((products)=>products.filter(product=>product.categoryId==="5").sort(product => product.featureValue).slice(0,5)));
+  readonly snackMunchies$:  Observable<ProductsModel[]> = this.products$.pipe(
+    map((products)=>products.filter(product=>product.categoryId==="2").sort(product => product.featureValue).slice(0,5)));
 
-  constructor(private _categoriesService: CategoriesService, private _storeService: StoreService) {
+  constructor(private _categoriesService: CategoriesService, private _storeService: StoreService, private _productService: ProductService) {
   }
   private _mapToJobWithTagsQuery(store: StoreModel, storeTags: StoreTagsModel[]): StoresWithTagsQueryModel {
     let storeTagsMap = storeTags.reduce((a, c) => {
-      return {...a, [c.id]: c};
+      return { ...a, [c.id]: c };
     }, {}) as Record<string, StoreTagsModel>
     return {
       storeName: store.name,
