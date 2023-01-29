@@ -20,18 +20,19 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class CategoryProductsComponent {
 
   readonly sortingOption$: Observable<string[]> = of(['Featured', 'Price Low', 'Price High', 'Avg. Rating']);
-  readonly filters: FormGroup = new FormGroup({sorting: new FormControl('Featured'), priceFrom: new FormControl(''), priceTo: new FormControl('')});
-  readonly selectedFilters: Observable<any> = this.filters.valueChanges.pipe(startWith({sorting: 'Featured', priceFrom: null, priceTo: null}), debounceTime(1000));
+  readonly filters: FormGroup = new FormGroup({sorting: new FormControl('Featured'), priceFrom: new FormControl(''), priceTo: new FormControl(''), rating: new FormControl('1')});
+  readonly selectedFilters: Observable<any> = this.filters.valueChanges.pipe(startWith({sorting: 'Featured', priceFrom: null, priceTo: null, rating: '1'}), debounceTime(1000));
   readonly categories$: Observable<CategoriesModel[]> = this._categoriesService.getAll();
   readonly category$: Observable<CategoriesModel> = this._activatedRoute.params.pipe(
     switchMap(data => this._categoriesService.getOneCategoryById(data['categoryId'])));
 
   readonly products$: Observable<ProductsWithRatingOptionsQueryModel[]> = combineLatest([
     this._activatedRoute.params,
-    this._productService.getAll()
+    this._productService.getAll(),
+    this.selectedFilters,
   ]).pipe(
-    map(([data,products]) => {
-      return products.filter(product => product.categoryId === data['categoryId']).map((product) => this._mapToProductsWithRatingOptionsQuery(product));
+    map(([data,products,filters]) => {
+      return this.applyFilters(products.filter(product => product.categoryId === data['categoryId']).map((product) => this._mapToProductsWithRatingOptionsQuery(product)), filters);
     })
   );
   readonly paginationData$: Observable<{ limit: number; page: number }> = this._activatedRoute.queryParams.pipe(map(
@@ -42,10 +43,9 @@ export class CategoryProductsComponent {
   ));
   readonly productsWithQueryModel$: Observable<ProductsWithRatingOptionsQueryModel[]> = combineLatest([
     this.products$,
-    this.selectedFilters,
     this.paginationData$
   ]).pipe(
-    map(([products, filters,paginationData]) => this.applyFilters(products, filters).slice((paginationData.page-1)*paginationData.limit, paginationData.page* paginationData.limit)));
+    map(([products,paginationData]) => products.slice((paginationData.page-1)*paginationData.limit, paginationData.page* paginationData.limit)));
 
   readonly limitOption: Observable<number[]> = of([5,10,15]);
   readonly pageOption:Observable<number[]> = combineLatest([
@@ -66,6 +66,7 @@ export class CategoryProductsComponent {
 
   private applyFilters(products: ProductsWithRatingOptionsQueryModel[], filters: any): ProductsWithRatingOptionsQueryModel[] {
     let filteredProducts = products
+    filteredProducts = filteredProducts.filter(p => Number(p.ratingValue) >= Number(filters.rating))
     if (filters.priceFrom !== null && filters.priceFrom !== '') {
       filteredProducts = filteredProducts.filter(p => p.price >= Number(filters.priceFrom))
     }
@@ -81,6 +82,7 @@ export class CategoryProductsComponent {
     } else {
       filteredProducts = filteredProducts.sort((a, b) => b.featureValue - a.featureValue)
     }
+    this.changedPage(1)
     return filteredProducts;
   }
 
