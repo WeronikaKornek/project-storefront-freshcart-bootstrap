@@ -14,7 +14,21 @@
 
         </ul>
       </div>
+      <div [formGroup]="filters" class="mb-8">
 
+        <h5 class="mb-3">Price</h5>
+        <div class="my-2">
+          <!-- input -->
+          <input type="number" formControlName="priceFrom" class="form-control" placeholder="Price from">
+        </div>
+        <div class="my-2">
+          <!-- input -->
+          <input type="number" formControlName="priceTo" class="form-control" placeholder="Price to">
+        </div>
+
+
+
+      </div>
     </div>
     <div *ngIf="category$ | async as category" class="col-9">
       <div class="card mb-4 bg-light border-0">
@@ -78,17 +92,23 @@
 
             </div>
           </div>
-          <nav *ngIf="paginationData$ |async as paginationData">
+
+          <div class="row pe-4">
+          <nav class="col" *ngIf="paginationData$ |async as paginationData">
+            <span class="fw-bold">Limit</span>
           <ul class="pagination">
             <li class="page-item" *ngFor="let item of limitOption | async"><a class="{{paginationData.limit === item ? 'page-link mx-1 active' : 'page-link mx-1'}}" (click)="changedLimit(item)">{{item}}</a></li>
           </ul>
           </nav>
 
-          <nav *ngIf="paginationData$ |async as paginationData">
+          <nav class="col" *ngIf="paginationData$ |async as paginationData">
+            <span class="fw-bold">Pagination</span>
             <ul class="pagination">
               <li class="page-item" *ngFor="let item of pageOption | async"><a class="{{paginationData.page === item ? 'page-link mx-1 active' : 'page-link mx-1'}}" (click)="changedPage(item)">{{item}}</a></li>
             </ul>
           </nav>
+            </div>
+
         </div>
 
       </div>

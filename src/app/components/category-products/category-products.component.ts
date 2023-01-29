@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {combineLatest, Observable, of, startWith, switchMap} from 'rxjs';
+import {combineLatest, debounceTime, Observable, of, startWith, switchMap} from 'rxjs';
 import {CategoriesModel} from '../../models/categories.model';
 import {CategoriesService} from '../../services/categories.service';
 import {ActivatedRoute, Router} from "@angular/router";
@@ -20,8 +20,8 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class CategoryProductsComponent {
 
   readonly sortingOption$: Observable<string[]> = of(['Featured', 'Price Low', 'Price High', 'Avg. Rating']);
-  readonly filters: FormGroup = new FormGroup({sorting: new FormControl('Featured')});
-  readonly selectedFilters: Observable<any> = this.filters.valueChanges.pipe(startWith({sorting: 'Featured'}));
+  readonly filters: FormGroup = new FormGroup({sorting: new FormControl('Featured'), priceFrom: new FormControl(''), priceTo: new FormControl('')});
+  readonly selectedFilters: Observable<any> = this.filters.valueChanges.pipe(startWith({sorting: 'Featured', priceFrom: null, priceTo: null}), debounceTime(1000));
   readonly categories$: Observable<CategoriesModel[]> = this._categoriesService.getAll();
   readonly category$: Observable<CategoriesModel> = this._activatedRoute.params.pipe(
     switchMap(data => this._categoriesService.getOneCategoryById(data['categoryId'])));
@@ -66,6 +66,12 @@ export class CategoryProductsComponent {
 
   private applyFilters(products: ProductsWithRatingOptionsQueryModel[], filters: any): ProductsWithRatingOptionsQueryModel[] {
     let filteredProducts = products
+    if (filters.priceFrom !== null && filters.priceFrom !== '') {
+      filteredProducts = filteredProducts.filter(p => p.price >= Number(filters.priceFrom))
+    }
+    if (filters.priceTo !== null && filters.priceTo !== ''){
+      filteredProducts = filteredProducts.filter(p => p.price <= Number(filters.priceTo))
+    }
     if (filters.sorting === 'Price Low') {
       filteredProducts = filteredProducts.sort((a, b) => a.price - b.price)
     } else if (filters.sorting === 'Price High') {
