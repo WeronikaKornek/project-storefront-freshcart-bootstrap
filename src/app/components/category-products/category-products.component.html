@@ -7,7 +7,10 @@
         <!-- nav -->
         <ul class="nav nav-category" id="categoryCollapseMenu">
 
-          <li *ngFor="let category of categories" class="nav-item border-bottom w-100 collapsed"  aria-expanded="false" aria-controls="categoryFlushOne"><a routerLink="/categories/{{category.id}}" class="nav-link">{{category.name}} <i class="feather-icon icon-chevron-right"></i></a>
+          <li *ngFor="let category of categories" class="nav-item border-bottom w-100 collapsed" aria-expanded="false"
+              aria-controls="categoryFlushOne"><a routerLink="/categories/{{category.id}}"
+                                                  class="nav-link">{{category.name}} <i
+            class="feather-icon icon-chevron-right"></i></a>
 
         </ul>
       </div>
@@ -19,6 +22,53 @@
           <h2 class="mb-0 fs-1">{{category.name}}</h2>
         </div>
       </div>
+      <div *ngIf="productsWithQueryModel$ | async as products">
+        <div class="container mb-12">
+          <p class="mb-3">{{products.length}}<span
+            class="text-decoration-none text-muted"><small> Products Found</small></span></p>
+          <div *ngFor="let product of products" class="card card-product mb-3">
+            <!-- card body -->
+            <div class="card-body">
+              <div class=" row align-items-center">
+                <!-- col -->
+                <div class="col-md-4 col-12">
+
+                  <div class="text-center position-relative ">
+                    <a href="shop-single.html">
+                      <!-- img --><img src="{{product.imageUrl}}" alt="{{product.name}}" class="mb-3 img-fluid"></a>
+
+                  </div>
+                </div>
+                <div class="col-md-8 col-12 flex-grow-1">
+                  <!-- heading -->
+                  <div class="text-small mb-1"><a routerLink="/categories/{{product.categoryId}}"
+                                                  class="text-decoration-none text-muted"><small>{{category.name}}</small></a>
+                  </div>
+                  <h2 class="fs-6"><a href="#" class="text-inherit text-decoration-none">{{product.name}}</a>
+                  </h2>
+                  <div>
+
+                    <!-- rating -->
+
+                    <small class="text-warning"> <i *ngFor="let val of product.ratingOptions" class="bi"
+                                                    [ngClass]="{'bi-star-fill': val === 1, 'bi-star': val === 0, 'bi-star-half': val === 0.5}"></i>
+                    </small>
+ <span class="text-muted small">{{product.ratingValue}}({{product.ratingCount}})</span>
+                  </div>
+                  <div class=" mt-6">
+                    <!-- price -->
+                    <div><span class="text-dark">${{product.price}}</span>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
