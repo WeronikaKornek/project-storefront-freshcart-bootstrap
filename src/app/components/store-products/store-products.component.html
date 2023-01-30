@@ -27,7 +27,7 @@
           </div>
           <div class="position-relative">
             <input type="email" class="form-control" id="exampleFormControlInput1"
-                   placeholder="Search E-Grocery Super Market"  [formControl]="search">
+                   placeholder="Search E-Grocery Super Market" [formControl]="search">
             <span class="position-absolute end-0 top-0 mt-2 me-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -46,12 +46,11 @@
   </div>
   <h3 class="pb-3">{{item.name}} products:</h3>
   <div class="row row-cols-6 mb-12">
-    <div *ngFor="let item of products$ | async" class="col"><a routerLink="/categories/{{item.id}}"
-                                                               class="text-decoration-none text-inherit">
+    <div *ngFor="let item of products$ | async" class="col">
       <div class="card-body text-center py-8"><!-- img --><img [src]="item.imageUrl" [alt]="item.name" class="mb-3">
         <div class="text-truncate"><strong>{{item.name}}</strong></div>
       </div>
-    </a></div>
+    </div>
   </div>
 </div>
 

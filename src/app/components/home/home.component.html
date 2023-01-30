@@ -4,10 +4,8 @@
     <div *ngFor="let item of categories$ | async" class="col-3 pb-3"><a routerLink="/categories/{{item.id}}"
                                                                         class="text-decoration-none text-inherit">
 
-      <!-- card -->
       <div class="card card-product">
-        <div class="card-body text-center py-8"><!-- img --><img [src]="item.imageUrl" [alt]="item.name" class="mb-3">
-          <!-- text -->
+        <div class="card-body text-center py-8"><img [src]="item.imageUrl" [alt]="item.name" class="mb-3">
           <div class="text-truncate">{{item.name}}</div>
         </div>
       </div>
@@ -16,38 +14,38 @@
 
   <h3 class="pb-3">Fruits & Vegetables</h3>
   <div class="row g-4 row-cols-5 mb-10">
-  <div *ngFor="let item of fruitsVegetables$ | async" class="col pb-3"><a [routerLink]=""
-                                                                     class="text-decoration-none text-inherit">
-    <!-- card -->
-    <div class="card card-product">
-      <div class="card-body text-left py-3"><!-- img --><img [src]="item.imageUrl" [alt]="item.name" class="mb-3 img-fluid"><!-- text -->
-        <div class="text-truncate">{{item.name}}</div>
-        <div><span>${{item.price}}</span></div>
+    <div *ngFor="let item of fruitsVegetables$ | async" class="col pb-3"><a [routerLink]=""
+                                                                            class="text-decoration-none text-inherit">
+      <div class="card card-product">
+        <div class="card-body text-left py-3"><!-- img --><img [src]="item.imageUrl" [alt]="item.name"
+                                                               class="mb-3 img-fluid"><!-- text -->
+          <div class="text-truncate">{{item.name}}</div>
+          <div><span>${{item.price}}</span></div>
+        </div>
       </div>
-    </div>
-  </a></div>
-</div>
+    </a></div>
+  </div>
 
   <h3 class="pb-3">Snack & Munchies</h3>
   <div class="row g-4 row-cols-5 mb-10">
-  <div *ngFor="let item of snackMunchies$ | async" class="col pb-3"><a [routerLink]=""
-                                                                     class="text-decoration-none text-inherit">
-    <!-- card -->
-    <div class="card card-product">
-      <div class="card-body text-left py-3"><!-- img --><img [src]="item.imageUrl" [alt]="item.name" class="mb-3 img-fluid"><!-- text -->
-        <div class="text-truncate">{{item.name}}</div>
-        <div><span>${{item.price}}</span></div>
+    <div *ngFor="let item of snackMunchies$ | async" class="col pb-3"><a [routerLink]=""
+                                                                         class="text-decoration-none text-inherit">
+
+      <div class="card card-product">
+        <div class="card-body text-left py-3"><img [src]="item.imageUrl" [alt]="item.name" class="mb-3 img-fluid">
+          <!-- text -->
+          <div class="text-truncate">{{item.name}}</div>
+          <div><span>${{item.price}}</span></div>
+        </div>
       </div>
-    </div>
-  </a></div>
-</div>
+    </a></div>
+  </div>
 
-
-  <div *ngIf="storesWithTags$ | async as stores" class="row">
+  <div *ngIf="storesWithTags$ | async as stores" class="row mb-7">
     <h3 class="pb-3">Stores</h3>
     <p><strong>We have <span class="text-success">{{stores.length}}</span> vendors now.</strong></p>
     <div *ngFor="let item of stores" class="col-4 pb-3">
-      <div class="card flex-row p-8 card-product ">
+      <div routerLink="/stores/{{item.id}}" class="card flex-row p-8 card-product ">
         <div><img [src]="item.logoUrl" [alt]="item.logoUrl" class="rounded-circle icon-shape icon-xl"></div>
         <div class="ms-6"><h5 class="mb-1"><a routerLink="/stores/{{item.id}}"
                                               class="text-inherit text-decoration-none">{{item.storeName}}</a></h5>
@@ -55,7 +53,7 @@
             <span *ngFor="let tag of item.tags; let indexOfelement=index;">{{tag}}<i
               *ngIf="indexOfelement !== item.tags.length-1" class="bi bi-dot"></i></span>
           </div>
-          <div>           <!-- badge -->
+          <div>
             <div class="badge text-bg-light border">{{item.distanceInMeters < 1000 ? item.distanceInMeters < 100 ?
                 (item.distanceInMeters / 100).toPrecision(1) :
                 (item.distanceInMeters / 1000).toPrecision(1) :
@@ -63,8 +61,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
