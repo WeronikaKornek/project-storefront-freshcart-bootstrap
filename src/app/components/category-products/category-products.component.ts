@@ -83,7 +83,13 @@ export class CategoryProductsComponent {
 
   private applyFilters(products: ProductsWithRatingOptionsQueryModel[], filters: any): ProductsWithRatingOptionsQueryModel[] {
     let filteredProducts = products
-
+    if (filters.stores.length > 0){
+      let mySet = new Set();
+      for (let i = 0; i < filters.stores.length; i++){
+        filteredProducts.filter(p => p.storeIds.includes(filters.stores[i])).forEach(item => mySet.add(item))
+      }
+      filteredProducts = Array.from(mySet) as  ProductsWithRatingOptionsQueryModel[];
+    }
     filteredProducts = filteredProducts.filter(p => Number(p.ratingValue) >= Number(filters.rating))
     if (filters.priceFrom !== null && filters.priceFrom !== '') {
       filteredProducts = filteredProducts.filter(p => p.price >= Number(filters.priceFrom))
