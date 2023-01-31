@@ -7,3 +7,13 @@
 // @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 // @import "./assets/scss/theme.scss"
+
+
+body, app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer {
+  margin-top: auto;
+}
