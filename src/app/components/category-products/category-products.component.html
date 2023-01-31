@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <div *ngIf="categories$ | async as categories" class="mb-8">
+        <!-- title -->
+        <h5 class="mb-3">Categories</h5>
+        <!-- nav -->
+        <ul class="nav nav-category" id="categoryCollapseMenu">
+
+          <li *ngFor="let category of categories" class="nav-item border-bottom w-100 collapsed"  aria-expanded="false" aria-controls="categoryFlushOne"><a routerLink="/categories/{{category.id}}" class="nav-link">{{category.name}} <i class="feather-icon icon-chevron-right"></i></a>
+
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="category$ | async as category" class="col-9">
+      <div class="card mb-4 bg-light border-0">
+        <!-- card body -->
+        <div class=" card-body p-9">
+          <h2 class="mb-0 fs-1">{{category.name}}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
