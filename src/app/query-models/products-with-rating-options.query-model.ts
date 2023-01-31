@@ -1,4 +1,4 @@
-export interface ProductsModel {
+export interface ProductsWithRatingOptionsQueryModel {
   readonly name: string;
   readonly price: number;
   readonly categoryId: string;
@@ -8,4 +8,5 @@ export interface ProductsModel {
   readonly id: string;
   readonly ratingValue: string;
   readonly ratingCount: string;
+  readonly ratingOptions: number[];
 }
