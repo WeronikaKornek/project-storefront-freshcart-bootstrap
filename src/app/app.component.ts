@@ -18,4 +18,5 @@ export class AppComponent {
   readonly categories$: Observable<CategoriesModel[]> = this._categoriesService.getAll();
   constructor(private _categoriesService: CategoriesService, private _storeService: StoreService) {
   }
+
 }

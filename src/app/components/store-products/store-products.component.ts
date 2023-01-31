@@ -18,6 +18,7 @@ import {FormControl} from '@angular/forms';
 export class StoreProductsComponent {
   readonly stores$: Observable<StoreModel> = this._activatedRoute.params.pipe(
     switchMap(data => this._storeService.getOneStoreById(data['storeId'])));
+
   readonly search: FormControl = new FormControl('');
 
   readonly products$: Observable<ProductsModel[]> = combineLatest([
