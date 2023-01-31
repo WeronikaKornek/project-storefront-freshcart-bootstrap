@@ -13,6 +13,10 @@ export class StoreService {
     return this._httpClient.get<StoreModel[]>('https://6384fca14ce192ac60696c4b.mockapi.io/freshcart-stores');
   }
 
+  getOneStoreById(id:string): Observable<StoreModel> {
+    return this._httpClient.get<StoreModel>(`https://6384fca14ce192ac60696c4b.mockapi.io/freshcart-stores/${id}`);
+  }
+
   getAllStoreTags(): Observable<StoreTagsModel[]> {
     return this._httpClient.get<StoreTagsModel[]>('https://6384fca14ce192ac60696c4b.mockapi.io/freshcart-store-tags');
   }
