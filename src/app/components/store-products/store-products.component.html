@@ -3,7 +3,7 @@
     <div class="col-3">
       <div class="d-flex flex-column">
         <div>
-          <img src="{{item.logoUrl}}" alt="{{item.name}}" class="rounded-circle icon-shape icon-xxl">
+          <img src="{{item.logoUrl | slice:1}}" alt="{{item.name}}" class="rounded-circle icon-shape icon-xxl">
         </div>
         <div class="mt-4">
           <h1 class="mb-1 h4">{{item.name}}</h1>
@@ -47,7 +47,7 @@
   <h3 class="pb-3">{{item.name}} products:</h3>
   <div class="row row-cols-6 mb-12">
     <div *ngFor="let item of products$ | async" class="col">
-      <div class="card-body text-center py-8"><!-- img --><img [src]="item.imageUrl" [alt]="item.name" class="mb-3">
+      <div class="card-body text-center py-8"><!-- img --><img [src]="item.imageUrl | slice:1" [alt]="item.name" class="mb-3">
         <div class="text-truncate"><strong>{{item.name}}</strong></div>
       </div>
     </div>
