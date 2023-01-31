@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'app-category-products',
-  styleUrls: ['./category-products.component.scss'],
-  templateUrl: './category-products.component.html',
+  selector: 'app-category',
+  styleUrls: ['./category.component.scss'],
+  templateUrl: './category.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoryProductsComponent {
+export class CategoryComponent {
 }
