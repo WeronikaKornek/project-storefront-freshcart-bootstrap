@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
+
 @Component({
   selector: 'app-home',
   styleUrls: ['./home.component.scss'],
@@ -8,4 +9,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
+
+
 }

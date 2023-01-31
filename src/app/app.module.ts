@@ -7,6 +7,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { CategoriesServiceModule} from "./services/categories.service-module";
+import {StoreServiceModule} from "./services/store.service-module";
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +21,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     CollapseModule,
     CommonModule,
     RouterModule,
+    CategoriesServiceModule,
+    StoreServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent],
