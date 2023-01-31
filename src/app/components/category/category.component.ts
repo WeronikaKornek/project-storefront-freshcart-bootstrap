@@ -26,7 +26,7 @@ export class CategoryComponent {
     sorting: new FormControl('Featured'),
     priceFrom: new FormControl(''),
     priceTo: new FormControl(''),
-    rating: new FormControl('1'),
+    rating: new FormControl(''),
     stores: new FormArray([]),
     search: new FormControl('')});
 
@@ -94,7 +94,9 @@ export class CategoryComponent {
       }
       filteredProducts = Array.from(mySet) as ProductsWithRatingOptionsQueryModel[];
     }
-    filteredProducts = filteredProducts.filter(p => Number(p.ratingValue) >= Number(filters.rating))
+    if (filters.rating !== ''){
+      filteredProducts = filteredProducts.filter(p => Number(p.ratingValue) >= Number(filters.rating))
+    }
     if (filters.priceFrom !== null && filters.priceFrom !== '') {
       filteredProducts = filteredProducts.filter(p => p.price >= Number(filters.priceFrom))
     }

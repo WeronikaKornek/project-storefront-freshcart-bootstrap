@@ -17,7 +17,7 @@
           <input type="text" class="form-control mb-3" id="exampleFormControlInput1"
                  placeholder="Search by store" formControlName="search">
           <div *ngFor="let store of stores" class="form-check mb-2">
-            <input class="form-check-input" type="checkbox" value="{{store.id}}" id="{{store.id}}"
+            <input class="form-check-input" type="checkbox" [checked]="filters.value.stores.includes(store.id)" value="{{store.id}}" id="{{store.id}}"
                    (change)="onCheckChange($event)">
             <label class="form-check-label" for="{{store.id}}">
               {{store.name}}
