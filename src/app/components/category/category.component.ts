@@ -13,13 +13,13 @@ import {StoreService} from "../../services/store.service";
 
 
 @Component({
-  selector: 'app-category-products',
-  styleUrls: ['./category-products.component.scss'],
-  templateUrl: './category-products.component.html',
+  selector: 'app-category',
+  styleUrls: ['./category.component.scss'],
+  templateUrl: './category.component.html',
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CategoryProductsComponent {
+export class CategoryComponent {
 
   readonly sortingOption$: Observable<string[]> = of(['Featured', 'Price Low', 'Price High', 'Avg. Rating']);
   readonly filters: FormGroup = new FormGroup({

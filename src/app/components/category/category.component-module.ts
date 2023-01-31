@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CategoryProductsComponent } from './category-products.component';
+import { CategoryComponent } from './category.component';
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -10,9 +10,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     RouterModule,
     ReactiveFormsModule
   ],
-  declarations: [CategoryProductsComponent],
+  declarations: [CategoryComponent],
   providers: [],
-  exports: [CategoryProductsComponent]
+  exports: [CategoryComponent]
 })
-export class CategoryProductsComponentModule {
+export class CategoryComponentModule {
 }
